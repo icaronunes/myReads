@@ -7,11 +7,75 @@ import { getAll } from './BooksAPI'
 export default class MyReads extends Component {
 
     state = {
-        list: [],
+        none: [],
         current: [],
         read: [],
         want: []
     }
+
+    handleRemove = (book, type) => {
+
+    }
+
+    handleMoveBook = (book, type) => {
+
+        if (book.sheft === 'currentlyReading') {
+            
+            this.state.current.reduce //TODo Aprender isso!
+
+            let alt = this.state.current.map((c, i, a) => {
+                if (c.title === book.title) {
+                    a[i].pop()
+                }
+                return c
+            })
+            console.log(alt)
+            this.setState(({
+                current: alt
+            }))
+        }
+
+        if (book.sheft === 'wantToRead') {
+            let alt = this.state.current.map(c => {
+                if (c.sheft === book.sheft) {
+                    c.sheft = book.sheft
+                }
+                return c
+            })
+            console.log(alt)
+            this.setState(({
+                want: alt
+            }))
+        }
+
+        if (book.sheft === 'read') {
+            let alt = this.state.current.map(c => {
+                if (c.sheft === book.sheft) {
+                    c.sheft = book.sheft
+                }
+                return c
+            })
+            console.log(alt)
+            this.setState(({
+                read: alt
+            }))
+        }
+
+        if (book.sheft === 'none') {
+            let alt = this.state.current.map(c => {
+                if (c.sheft === book.sheft) {
+                    c.sheft = book.sheft
+                }
+                return c
+            })
+            console.log(alt)
+            this.setState(({
+                none: alt
+            }))
+        }
+
+    }
+
 
     componentDidMount() {
         getAll().then(resolver => {
@@ -46,9 +110,10 @@ export default class MyReads extends Component {
                     <Toolbar />
                     <div className="list-books-content">
                         <div>
-                            <Bookshelf title={'Currently Reading'} book={this.state.current} />
-                            <Bookshelf title={'Want to Read'} book={this.state.want} />
-                            <Bookshelf title={'Read'} book={this.state.read} />
+                            <Bookshelf title={'Currently Reading'} type={'currentlyReading'} book={this.state.current} handle={this.handleMoveBook} />
+                            <Bookshelf title={'Want to Read'} type={'wantToRead'} book={this.state.want} handle={this.handleMoveBook} />
+                            <Bookshelf title={'Read'} type={'read'} book={this.state.read} handle={this.handleMoveBook} />
+                            <Bookshelf title={'None'} type={'none'} book={this.state.none} handle={this.handleMoveBook} />
                         </div>
                     </div>
                     <Link className="open-search" to="/search">Link</Link>
