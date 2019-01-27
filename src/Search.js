@@ -1,8 +1,49 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { search, update } from './BooksAPI'
+import Bookshelf from './BookShelf'
+import { debounce } from 'lodash'
 
 export default class Search extends Component {
+
+    state = {
+        list: [],
+    }
+
+    handleSearch = debounce((query) => {
+        console.log(query)
+        if (!query) { this.setState({ list: [] }) }
+
+        search(query)
+            .then(resolver => {
+                console.log('resolver', resolver)
+                if (!resolver.error) {
+                    this.setState({
+                        list: resolver
+                    })
+                } else {
+                    this.setState({ list: [] })
+                }
+
+            }).catch(erro => {
+                console.log('erro', erro)
+                this.setState({ list: [] })
+            })
+    }, 500)
+    /** Loadsh para aguardar 500 milisegundos, para nova busca */
+
+    handleMoveBook = (book, shelf) => {
+        update(book, shelf).then(resolver => {
+            console.log(resolver)
+        }).catch(erro => {
+            console.log(erro)
+        })
+    }
+
     render() {
+
+
+        let books = this.props.location.state.books
         return (
             <div className="search-books">
                 <div className="search-books-bar">
@@ -18,12 +59,19 @@ export default class Search extends Component {
                               you don't find a specific author or title. Every search is limited by search terms.
                             */
                         }
-                        <input type="text" placeholder="Search by title or author" />
-
+                        <input type="text" placeholder="Search by title or author" onChange={ (e) => this.handleSearch(e.target.value)} />
                     </div>
                 </div>
                 <div className="search-books-results">
-                    <ol className="books-grid"></ol>
+                    <ol className="books-grid">
+                        {this.state.list &&
+                            <Bookshelf title={'Search'} type={'currentlyReading'}
+                                book={this.state.list}
+                                listUser={books}
+                                handle={this.handleMoveBook}
+                            />
+                        }
+                    </ol>
                 </div>
             </div>
         )

@@ -2,17 +2,17 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Toolbar from './Toolbar'
 import Bookshelf from './BookShelf'
-import { getAll } from './BooksAPI'
+import { getAll, update } from './BooksAPI'
 
-export default class MyReads extends Component {
+class MyReads extends Component {
 
     state = {
-        book: [],
+        books: [],
         erro: ''
     }
 
     handleMoveBook = (book, type) => {
-        let old = this.state.book
+        let old = this.state.books
         let novaLista = old.map((item, i, array) => {
             if (item.title === book.title) {
                 item = book
@@ -21,26 +21,36 @@ export default class MyReads extends Component {
         })
 
         this.setState({
-            book: novaLista,
+            books: novaLista,
+        })
+        
+    }
+
+    handleUpdateBook = (book, shelf) => {
+        update(book, shelf).then(resolver => {
+            console.log(resolver)
+            this.handleMoveBook(book, shelf)
+        }).catch(erro => {
+            console.log(erro)
         })
     }
 
     componentDidMount() {
         getAll().then(resolver => {
             this.setState({
-                book: resolver
+                books: resolver
             })
         }).catch(reject => {
             this.setState({
                 erro: "Erro na obtenção da lista de livros"
             })
         })
-    }
+    } 
 
     render() {
 
         let current = [], read = [], want = [], none = [];
-        this.state.book.forEach(item => {
+        this.state.books.forEach(item => {
             if (item.shelf === 'currentlyReading') {
                 current = [...current, item]
             }
@@ -56,21 +66,29 @@ export default class MyReads extends Component {
         })
 
         return (
+
             <div>
-                {!this.state.erro && <div style={{textAlign: "center",}}>ERRO: {this.state.erro}</div>}
+                {this.state.erro && <div style={{ textAlign: "center", }}>ERRO: {this.state.erro}</div>}
                 <div className="list-books">
                     <Toolbar />
                     <div className="list-books-content">
                         <div>
-                            <Bookshelf title={'Currently Reading'} type={'currentlyReading'} book={current} handle={this.handleMoveBook} />
-                            <Bookshelf title={'Want to Read'} type={'wantToRead'} book={want} handle={this.handleMoveBook} />
-                            <Bookshelf title={'Read'} type={'read'} book={read} handle={this.handleMoveBook} />
-                            <Bookshelf title={'None'} type={'none'} book={none} handle={this.handleMoveBook} />
+                            <Bookshelf title={'Currently Reading'} type={'currentlyReading'} book={current} handle={this.handleUpdateBook} />
+                            <Bookshelf title={'Want to Read'} type={'wantToRead'} book={want} handle={this.handleUpdateBook} />
+                            <Bookshelf title={'Read'} type={'read'} book={read} handle={this.handleUpdateBook} />
                         </div>
                     </div>
-                    <Link className="open-search" to="/search">Link</Link>
+                    <Link
+                        className="open-search"
+                        to={{
+                            pathname: '/search',
+                            state: { books: this.state.books }
+                        }}
+                    />
                 </div>
             </div>
         )
     }
 }
+
+export default MyReads
