@@ -1,17 +1,20 @@
 import React from 'react'
-
+import { Link } from 'react-router-dom'
 const Book = (props) => {
 
     let book = props.book
-    console.log(book.shelf)
     return (
         <div className="book">
             <div className="book-authors">{book.authors}</div>
             <div className="book-top">
-                <div className="book-cover" style={
+                <Link className="book-cover" style={
                     {
                         width: 128, height: 193, backgroundImage: `url(${book.imageLinks ? book.imageLinks.smallThumbnail : ''})`
-                    }}></div>
+                    }} to={{
+                        pathname: `/book/${book.id}`,
+                        state: { book }
+                    }}></Link>
+
                 <div className="book-shelf-changer">
                     <select defaultValue={book.shelf ? book.shelf : '...'} onChange={(e) => {
                         props.handleMove(e, book)

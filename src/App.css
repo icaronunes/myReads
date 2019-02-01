@@ -172,6 +172,14 @@ button:active {
   font-size: 12px
 }
 
+option:disabled {
+  align-content: center;
+  align-self: center;
+  align-items: center;
+  font-size: 12px;
+  
+}
+
 .book-top {
   position: relative;
   height: 200px;

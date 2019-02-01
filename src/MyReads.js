@@ -23,7 +23,7 @@ class MyReads extends Component {
         this.setState({
             books: novaLista,
         })
-        
+
     }
 
     handleUpdateBook = (book, shelf) => {
@@ -45,7 +45,7 @@ class MyReads extends Component {
                 erro: "Erro na obtenção da lista de livros"
             })
         })
-    } 
+    }
 
     render() {
 
