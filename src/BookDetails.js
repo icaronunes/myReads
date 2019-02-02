@@ -1,9 +1,10 @@
 import React from 'react'
-
+import './App.css'
 export default function BookDetails(props) {
 
     const book = props.location.state.book
     console.log(book)
+
     return (
         <div style={{ margin: '10px 20px 10px 20px' }}>
             <div style={{ display: 'inline' }}>
@@ -15,28 +16,33 @@ export default function BookDetails(props) {
                 }}>
                     <figure style={
                         {
-                            height: '235px',
-                            width: '150px',
-                            backgroundSize: '100%',
-                            float: 'left',
-                            borderRadius: '10px',
-                            marginInlineStart: '5px',
-                            marginInlineEnd: '15px',
-                            marginTop: '1px',
-                            marginBottom: '2px',
-                            backgroundRepeat: 'no-repeat',
                             backgroundImage: `url(${book.imageLinks ? book.imageLinks.smallThumbnail : ''})`
                         }}>
                     </figure>
-                    <h2 style={{ color: 'gray', marginTop: '0px', marginBottom: '0px' }} >{book.title}</h2>
-                    <h5 style={{ color: 'gray', marginTop: '0px', marginBottom: '4px' }} >{book.subtitle}</h5>
+                    <h2 style={{
+                        color: 'black',
+                        marginTop: '0px',
+                        marginBottom: '0px'
+                    }} >{book.title}</h2>
+                    <h5 style={{
+                        color: 'gray',
+                        marginTop: '0px',
+                        marginBottom: '4px'
+                    }} >{book.subtitle}</h5>
                     {book.authors ? book.authors.map(author => {
-                        return <h4 key={author} style={{ color: 'gray', marginTop: '0px', marginBottom: '4px' }}>{author}</h4>
+                        return <h4 key={author} style={{
+                            color: 'gray',
+                            marginTop: '0px',
+                            marginBottom: '4px'
+                        }}>{author}</h4>
                     }) : ''}
-                    <h6 style={{ color: 'gray', marginTop: '0px', marginBottom: '4px' }}>{book.pageCount && `Pages ${book.pageCount}`}</h6>
-                    <h6 style={{ color: 'gray', marginTop: '0px', marginBottom: '4px' }}>{book.categories && book.categories}</h6>
-                    <h6 style={{ color: 'gray', marginTop: '0px', marginBottom: '60px' }}>{book.publishedDate && book.publishedDate}</h6>
-                    <a style={{ color: 'black', fontWeight: 'bold' }} href={book.infoLink}>Mais informações</a>
+                    <h6>{book.pageCount && `Pages ${book.pageCount}`}</h6>
+                    <h6>{book.categories && book.categories}</h6>
+                    <h6 style={{ marginBottom: '60px' }}>{book.publishedDate && book.publishedDate}</h6>
+                    <a style={{
+                        color: 'black',
+                        fontWeight: 'bold'
+                    }} href={book.infoLink}>Mais informações</a>
                 </div>
             </div>
             <div style={{
@@ -45,18 +51,24 @@ export default function BookDetails(props) {
                 borderRadius: '8px',
             }}>{
                     book.description &&
-                    <h5 style={{ color: 'gray', padding: '8px', paddingBottom: '2px', marginTop: '2px', marginBottom: '2px' }}>{book.description}</h5>
+                    <h5 style={{
+                        color: 'black',
+                        padding: '8px',
+                        paddingBottom: '2px',
+                        marginTop: '2px',
+                        marginBottom: '2px'
+                    }}>{book.description}</h5>
                 }
                 {book.shelf &&
-                    <h6 style={{ color: 'gray', padding: '8px', paddingTop: '2px', marginTop: '2px', marginBottom: '2px' }} >{book.shelf}</h6>
+                    <h6 style={{
+                        color: 'red',
+                        padding: '8px',
+                        paddingTop: '2px',
+                        marginTop: '2px',
+                        marginBottom: '2px'
+                    }} >{book.shelf}</h6>
                 }
             </div>
-
-
-
         </div>
-
-
     )
-
 }
