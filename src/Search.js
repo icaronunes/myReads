@@ -4,6 +4,8 @@ import { search, update } from './BooksAPI'
 import Bookshelf from './BookShelf'
 import { debounce } from 'lodash'
 
+
+// Class usada pra fazer busca por novos livro
 export default class Search extends Component {
 
     state = {
@@ -59,7 +61,7 @@ export default class Search extends Component {
                               you don't find a specific author or title. Every search is limited by search terms.
                             */
                         }
-                        <input type="text" placeholder="Search by title or author" onChange={ (e) => this.handleSearch(e.target.value)} />
+                        <input type="text" placeholder="Search by title or author" onChange={(e) => this.handleSearch(e.target.value)} />
                     </div>
                 </div>
                 <div className="search-books-results">

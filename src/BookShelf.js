@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import Book from './Book'
 
+//Class usada como estante de exibir livros conforme sua categoria-shelf ou busca
 class BookShelf extends Component {
 
     handleMove = (e, book) => {

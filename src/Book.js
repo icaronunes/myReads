@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+//Uma class sem estado para criar componente de exibição da capa do livro na estante
 const Book = (props) => {
 
     let book = props.book

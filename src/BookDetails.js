@@ -1,5 +1,6 @@
 import React from 'react'
 import './App.css'
+//Class que tras mais detalhes do livro escolhido.
 export default function BookDetails(props) {
 
     const book = props.location.state.book

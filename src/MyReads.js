@@ -4,6 +4,7 @@ import Toolbar from './Toolbar'
 import Bookshelf from './BookShelf'
 import { getAll, update } from './BooksAPI'
 
+//Clas usada para envolver estantes e link para busca
 class MyReads extends Component {
 
     state = {
