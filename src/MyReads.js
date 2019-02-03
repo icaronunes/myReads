@@ -12,9 +12,9 @@ class MyReads extends Component {
         erro: ''
     }
 
-    handleMoveBook = (book, type) => {
+    handleMoveBook = (book) => {
         let old = this.state.books
-        let novaLista = old.map((item, i, array) => {
+        let novaLista = old.map((item) => {
             if (item.title === book.title) {
                 item = book
             }
@@ -30,7 +30,7 @@ class MyReads extends Component {
     handleUpdateBook = (book, shelf) => {
         update(book, shelf).then(resolver => {
             console.log(resolver)
-            this.handleMoveBook(book, shelf)
+            this.handleMoveBook(book)
         }).catch(erro => {
             console.log(erro)
         })

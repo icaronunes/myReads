@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types';
 //Uma class sem estado para criar componente de exibição da capa do livro na estante
 const Book = (props) => {
 
@@ -17,7 +18,7 @@ const Book = (props) => {
                     }}></Link>
 
                 <div className="book-shelf-changer">
-                    <select defaultValue={book.shelf ? book.shelf : '...'} onChange={(e) => {
+                    <select defaultValue={book.shelf ? book.shelf : 'none'} onChange={(e) => {
                         props.handleMove(e, book)
                     }}>
                         <option value="..." disabled >Move to...</option>
@@ -27,7 +28,7 @@ const Book = (props) => {
                         >Currently Reading</option>
                         <option value="read"
                         >Read</option>
-                        <option value="none" hidden={book.shelf}>None</option>
+                        <option value="none" hidden={book.shelf} >None</option>
                     </select>
                 </div>
             </div>
@@ -35,5 +36,13 @@ const Book = (props) => {
         </div>
     )
 }
+
+
+Book.propTypes = {
+
+    book: PropTypes.object.isRequired,
+    handleMove: PropTypes.func.isRequired
+
+};
 
 export default Book

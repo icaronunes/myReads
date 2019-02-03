@@ -4,7 +4,6 @@ import { search, update } from './BooksAPI'
 import Bookshelf from './BookShelf'
 import { debounce } from 'lodash'
 
-
 // Class usada pra fazer busca por novos livro
 export default class Search extends Component {
 
